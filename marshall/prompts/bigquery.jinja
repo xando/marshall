@@ -1,0 +1,11 @@
+Using following BigQuery tables:
+
+{% for table in tables %}
+### {{table.name}}: ### 
+Located in '{{table.location}}''
+{{table.schema}}
+{% endfor %}
+
+Write BigQuery that will do following: {{user_query}}
+
+Return just BigQuery query.
