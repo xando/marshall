@@ -1,1 +1,3 @@
 *.ipynb
+dist
+*.egg-info
