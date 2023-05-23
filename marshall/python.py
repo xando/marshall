@@ -7,7 +7,7 @@ from .core import _generate_prompt, _call_openai, _ipytohn_nice_string
 TEMPLATE = pathlib.Path(__file__).parent / "prompts" / "python.jinja"
 
 
-def generate(user_query):
+def generate(user_query, debug=False):
 
     function_name = f"function_{hashlib.md5(user_query.encode()).hexdigest()}"
     version = f"{sys.version_info.major}.{sys.version_info.minor}"
@@ -19,7 +19,13 @@ def generate(user_query):
         user_query=user_query
     )
 
+    if debug:
+        print(prompt)
+
     python_code = _call_openai(prompt)
+
+    if debug:
+        print(python_code)
 
     exec(python_code, globals())
 

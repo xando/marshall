@@ -24,7 +24,7 @@ def _get_table_schema(client, table_location):
     return tabulate(schema, headers='keys', tablefmt='simple_grid')
 
 
-def generate(query, project, dataset):
+def generate(query, project, dataset, debug=False):
     client = bigquery.Client(project=project)
     tables = [
         {
@@ -41,7 +41,13 @@ def generate(query, project, dataset):
         tables=tables
     )
 
+    if debug:
+        print(prompt)
+
     query = _call_openai(prompt)
+
+    if debug:
+        print(query)
 
     df = client.query(query).to_dataframe()
 

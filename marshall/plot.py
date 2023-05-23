@@ -18,14 +18,20 @@ class EmptyObject:
         pass
 
 
-def generate(dataframe, user_query):
+def generate(dataframe, user_query, debug=False):
     prompt = _generate_prompt(
         template=TEMPLATE,
         dataframe=dataframe,
         user_query=user_query
     )
 
+    if debug:
+        print(prompt)
+
     plot_code = _call_openai(prompt)
+
+    if debug:
+        print(plot_code)
 
     ret = EmptyObject()
 
